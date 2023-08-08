@@ -17,9 +17,9 @@ You can also directly pass argument to the console.
 ## Demonstrations
 ======================
 `$ ./console.py # interactive mode`
- (hbnb)
- (hbnb) help
- (hbnb) help
+`(hbnb)`
+`(hbnb) help`
+`(hbnb) help`
 
  Documented commands (type help \<topic\>):
 ========================================
