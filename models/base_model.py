@@ -12,20 +12,28 @@ class BaseModel:
     all other classes inheriting from the base model
     """
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """
         The init method is the first method called when an
         instance of the basemodel class is created
         """
-        self.id = str(uuid4())
-        self.created_at = datetime.now()
-        self.updated_at = datetime.now()
+        if kwargs:
+            for key, value in kwargs.items():
+                if key == 'created_at' or key == 'updated_at':
+                    setattr(self, key, datetime.strptime(value, "%Y-%m-%dT%H:%M:%S.%f"))
+                else:
+                    setattr(self, key, value)
+        else:
+            self.id = str(uuid4())
+            self.created_at = datetime.now()
+            self.updated_at = datetime.now()
 
     def __str__(self):
         """ Prints a string reprsentation of instance """
         return f'[{self.__class__.__name__}] ({self.id}) {self.__dict__}'
 
     def save(self):
+        """Updates 'updated_at' instance time"""
         self.updated_at = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
         return self.updated_at
 
@@ -33,6 +41,9 @@ class BaseModel:
         """Returns a dictionary of the attributes of BaseModel class"""
         res_dict = {}
         for key, value in self.__dict__.items():
-            res_dict[key] = value
-        res_dict['__class__'] = self.__class__.__name__
+            if isinstance(value, datetime):
+                res_dict[key] = value.strftime("%Y-%m-%dT%H:%M:%S.%f")
+            else:
+                res_dict[key] = value
+        #res_dict['__class__'] = self.__class__.__name__
         return res_dict
