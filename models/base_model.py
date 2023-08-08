@@ -32,6 +32,6 @@ class BaseModel:
     def to_dict(self):
         """Returns a dictionary of the attributes of BaseModel class"""
         res_dict = {}
-        for key, value in self.__dict__:
+        for key, value in self.__dict__.items():
             res_dict[key] = value
         return res_dict
