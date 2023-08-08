@@ -1,11 +1,12 @@
 #!/usr/bin/python3
 """
 This module contains base class for all of the objects
-
 """
 
 from datetime import datetime
 from uuid import uuid4
+
+
 class BaseModel:
     """
     The BaseModel class defines the common attributes for
@@ -45,5 +46,5 @@ class BaseModel:
                 res_dict[key] = value.strftime("%Y-%m-%dT%H:%M:%S.%f")
             else:
                 res_dict[key] = value
-        #res_dict['__class__'] = self.__class__.__name__
+        # res_dict['__class__'] = self.__class__.__name__
         return res_dict
