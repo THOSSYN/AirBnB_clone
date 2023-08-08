@@ -34,4 +34,5 @@ class BaseModel:
         res_dict = {}
         for key, value in self.__dict__.items():
             res_dict[key] = value
+        res_dict['__class__'] = self.__class__.__name__
         return res_dict
