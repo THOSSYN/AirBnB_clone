@@ -15,14 +15,14 @@ The interpreter works both in interactive and non-interactive modes.
 You can also directly pass argument to the console.
 
 ## Demonstrations
-======================
-`$ ./console.py # interactive mode`
-`(hbnb)`
-`(hbnb) help`
-`(hbnb) help`
+____________________
+`$ ./console.py # interactive mode`\n
+`(hbnb)`\n
+`(hbnb) help`\n
+`(hbnb) help`\n
 
- Documented commands (type help \<topic\>):
-========================================
+` Documented commands (type help \<topic\>):`
+____________________________________________
  EOF  help  quit
 
  (hbnb)
