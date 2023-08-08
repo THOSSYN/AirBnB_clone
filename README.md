@@ -16,33 +16,33 @@ You can also directly pass argument to the console.
 
 ## Demonstrations
 ======================
-> $ ./console.py # interactive mode
-> (hbnb)
-> (hbnb) help
-> (hbnb) help
+`$ ./console.py # interactive mode`
+ (hbnb)
+ (hbnb) help
+ (hbnb) help
 
-> Documented commands (type help \<topic\>):
+ Documented commands (type help \<topic\>):
 ========================================
-> EOF  help  quit
+ EOF  help  quit
 
-> (hbnb)
-> (hbnb)
-> (hbnb) quit
-> $
-> $ echo "help" | ./console.py	# non-interactive mode, passing arguments
-> (hbnb)
+ (hbnb)
+ (hbnb)
+ (hbnb) quit
+ $
+ $ echo "help" | ./console.py	# non-interactive mode, passing arguments
+ (hbnb)
 
-> Documented commands (type help \<topic\>):
+ Documented commands (type help \<topic\>):
 ========================================
-> EOF  help  quit
-> (hbnb)
-> $
-> $ cat test_help
-> $ cat test_help | ./console.py     # non-interactive mode, reading from a file
-> (hbnb)
+ EOF  help  quit
+ (hbnb)
+ $
+ $ cat test_help
+ $ cat test_help | ./console.py     # non-interactive mode, reading from a file
+ (hbnb)
 
-> Documented commands (type help \<topic\>):
+ Documented commands (type help \<topic\>):
 ========================================
-> EOF  help  quit
-> (hbnb)
-> $
+ EOF  help  quit
+ (hbnb)
+ `$`
