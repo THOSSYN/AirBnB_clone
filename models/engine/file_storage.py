@@ -8,6 +8,7 @@ import json
 import os
 from datetime import datetime
 
+
 class FileStorage:
     """ The file storage class will aid serialization and
     deserialization of basemodel objects, using
@@ -25,12 +26,15 @@ class FileStorage:
 
     def new(self, obj):
         """ Set a new object(obj) in the __object dictionary. """
-        new_key = str(obj.__class__.__name__) + '.' + str(obj.id)
-        self.__objects[new_key] = obj.__dict__
+        #new_key = str(obj.__class__.__name__) + '.' + str(obj.id)
+        #self.__objects[new_key] = obj.__dict__
+        key = f"{obj.__class__.__name__}.{obj.id}"
+        self.__objects[key] = obj
 
     def save(self):
         """ serializes the __objects to the json file."""
 
+        """
         if os.path.exists(self.__file_path):
             with open(self.__file_path, "w", encoding="utf-8") as file:
                 new_dict = {}
@@ -49,11 +53,17 @@ class FileStorage:
         print()
         # print(new_dict)
         print("new---------------------------------------------------------")
-        print()
+        print()"""
+        data = {}
+        for new_key, obj in self.__objects.items():
+            data[new_key] = obj.to_dict()
+        with open(self.__file_path , "w") as f:
+            json.dump(data, f)
     def reload(self):
         """ deserializes the JSON file to objects, if __file_path exits
         otherwise nothing is done. """
 
+        """
         if os.path.exists(self.__file_path):
             with open(self.__file_path, "r", encoding="utf-8") as file:
                 self.__objects = json.loads(file.read())
@@ -66,3 +76,8 @@ class FileStorage:
 
         else:
             pass
+        """
+        if os.path.exists(self.__file_path):
+            with open(self.__file_path, "r") as f:
+                des_obj = json.load(f)
+            return des_obj

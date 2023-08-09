@@ -38,7 +38,7 @@ class BaseModel:
         """Updates 'updated_at' instance time"""
         self.updated_at = datetime.now()
         storage.save()
-        return self.updated_at
+        #return self.updated_at
 
     def to_dict(self):
         """Returns a dictionary of the attributes of BaseModel class"""
@@ -47,8 +47,8 @@ class BaseModel:
             if isinstance(value, datetime):
                 # print("yes it is")
                 res_dict[key] = value.isoformat()
-            else:
-                res_dict[key] = value
+            #else:
+                #res_dict[key] = value
         res_dict['__class__'] = self.__class__.__name__
 
         return res_dict
