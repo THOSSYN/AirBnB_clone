@@ -5,8 +5,9 @@ This is a unittest module for the basemodel class.
 
 import unittest
 from models.base_model import BaseModel
-from uuid import UUID
+from uuid import UUID, uuid4
 from datetime import datetime
+
 
 class TestBaseModel(unittest.TestCase):
     """
@@ -53,3 +54,15 @@ class TestBaseModel(unittest.TestCase):
         """ tests for the to dict method """
 
         self.assertIsNotNone(self.ob1.to_dict().__doc__)
+
+    def test_init_from_dict(self):
+        """Tests for instantiation from dictionary representation"""
+        a_dict = {
+                'id': str(uuid4()),
+                'created_at': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f"),
+                'updated_at': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
+                }
+        ob3 = BaseModel(**a_dict)
+        self.assertIsInstance(ob3, BaseModel)
+        self.assertEqual(ob3.id, a_dict['id'])
+        self.assertEqual(ob3.created_at.isoformat(), a_dict['created_at'])
