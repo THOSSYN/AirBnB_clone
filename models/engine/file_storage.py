@@ -26,8 +26,7 @@ class FileStorage:
 
     def new(self, obj):
         """ Set a new object(obj) in the __object dictionary. """
-        #new_key = str(obj.__class__.__name__) + '.' + str(obj.id)
-        #self.__objects[new_key] = obj.__dict__
+        
         key = f"{obj.__class__.__name__}.{obj.id}"
         self.__objects[key] = obj
 
