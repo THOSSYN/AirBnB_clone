@@ -35,7 +35,7 @@ class BaseModel:
 
     def save(self):
         """Updates 'updated_at' instance time"""
-        self.updated_at = datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
+        self.updated_at = datetime.now().isoformat()
         return self.updated_at
 
     def to_dict(self):
@@ -43,7 +43,7 @@ class BaseModel:
         res_dict = {}
         for key, value in self.__dict__.items():
             if isinstance(value, datetime):
-                res_dict[key] = value.strftime("%Y-%m-%dT%H:%M:%S.%f")
+                res_dict[key] = datetime.isoformat(value)
             else:
                 res_dict[key] = value
         # res_dict['__class__'] = self.__class__.__name__
