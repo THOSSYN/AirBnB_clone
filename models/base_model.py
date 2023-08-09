@@ -7,6 +7,7 @@ from datetime import datetime
 from uuid import uuid4
 from models import storage
 
+
 class BaseModel:
     """
     The BaseModel class defines the common attributes for
@@ -26,7 +27,7 @@ class BaseModel:
                     pass
                 else:
                     setattr(self, key, value)
-                    #kwargs[key] = value
+
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
@@ -48,10 +49,9 @@ class BaseModel:
         res_dict = {}
         for key, value in self.__dict__.items():
             if isinstance(value, datetime):
-                # print("yes it is")
                 res_dict[key] = value.isoformat()
             else:
                 res_dict[key] = value
-        res_dict[f"__class__"] = self.__class__.__name__
+        res_dict["__class__"] = self.__class__.__name__
 
         return res_dict
