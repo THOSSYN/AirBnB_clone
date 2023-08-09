@@ -22,8 +22,11 @@ class BaseModel:
             for key, value in kwargs.items():
                 if key == 'created_at' or key == 'updated_at':
                     setattr(self, key, datetime.fromisoformat(value))
+                elif key == "__class__":
+                    pass
                 else:
                     setattr(self, key, value)
+                    #kwargs[key] = value
         else:
             self.id = str(uuid4())
             self.created_at = datetime.now()
@@ -38,7 +41,7 @@ class BaseModel:
         """Updates 'updated_at' instance time"""
         self.updated_at = datetime.now()
         storage.save()
-        #return self.updated_at
+        return self.updated_at
 
     def to_dict(self):
         """Returns a dictionary of the attributes of BaseModel class"""
@@ -47,8 +50,8 @@ class BaseModel:
             if isinstance(value, datetime):
                 # print("yes it is")
                 res_dict[key] = value.isoformat()
-            #else:
-                #res_dict[key] = value
-        res_dict['__class__'] = self.__class__.__name__
+            else:
+                res_dict[key] = value
+        res_dict[f"__class__"] = self.__class__.__name__
 
         return res_dict

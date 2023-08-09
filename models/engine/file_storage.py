@@ -33,51 +33,20 @@ class FileStorage:
 
     def save(self):
         """ serializes the __objects to the json file."""
-
-        """
-        if os.path.exists(self.__file_path):
-            with open(self.__file_path, "w", encoding="utf-8") as file:
-                new_dict = {}
-                for key, value in self.__objects.items():
-                    new_dict[key] = value
-
-                    for key, values in new_dict.items():
-                        for key2, value2 in values.items():
-                            if isinstance(value2, datetime):
-                                values[key2] = value2.isoformat()
-
-                file.write(json.dumps(new_dict))
-
-        print(self.__objects)
-        print("self---------------------------------------------------------")
-        print()
-        # print(new_dict)
-        print("new---------------------------------------------------------")
-        print()"""
         data = {}
         for new_key, obj in self.__objects.items():
             data[new_key] = obj.to_dict()
-        with open(self.__file_path , "w") as f:
+        with open(self.__file_path , "w", encoding="utf-8") as f:
             json.dump(data, f)
+
     def reload(self):
         """ deserializes the JSON file to objects, if __file_path exits
         otherwise nothing is done. """
-
-        """
-        if os.path.exists(self.__file_path):
-            with open(self.__file_path, "r", encoding="utf-8") as file:
-                self.__objects = json.loads(file.read())
-
-
-            for key, value in self.__objects.items():
-                for key2, value2 in value.items():
-                    if key2 :
-                            value[key2] = datetime.fromisoformat(value2)
-
-        else:
-            pass
-        """
+        from ..base_model import BaseModel
         if os.path.exists(self.__file_path):
             with open(self.__file_path, "r") as f:
                 des_obj = json.load(f)
-            return des_obj
+                for key, value in des_obj.items():
+                    inst = BaseModel(**value)
+                    des_obj[key] = inst
+            self.__objects = des_obj
