@@ -5,12 +5,12 @@ This module contains base class for all of the objects
 
 from datetime import datetime
 from uuid import uuid4
-
+from models import storage
 
 class BaseModel:
     """
     The BaseModel class defines the common attributes for
-    all other classes inheriting from the base model
+    all other classes inheriting from the basemodel
     """
 
     def __init__(self, *args, **kwargs):
@@ -28,6 +28,7 @@ class BaseModel:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
+            storage.new(self)
 
     def __str__(self):
         """ Prints a string reprsentation of instance """
@@ -35,7 +36,8 @@ class BaseModel:
 
     def save(self):
         """Updates 'updated_at' instance time"""
-        self.updated_at = datetime.now().isoformat()
+        self.updated_at = datetime.now()
+        storage.save()
         return self.updated_at
 
     def to_dict(self):
@@ -43,8 +45,10 @@ class BaseModel:
         res_dict = {}
         for key, value in self.__dict__.items():
             if isinstance(value, datetime):
-                res_dict[key] = datetime.isoformat(value)
+                # print("yes it is")
+                res_dict[key] = value.isoformat()
             else:
                 res_dict[key] = value
-        # res_dict['__class__'] = self.__class__.__name__
+        res_dict['__class__'] = self.__class__.__name__
+
         return res_dict
