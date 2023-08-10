@@ -9,6 +9,11 @@ class HBNBCommand(cmd.Cmd):
     """Creates a class that handles the cmd console"""
     prompt = "(hbnb) "
 
+    def emptyline(self):
+        """ The emptyline method called when an empty line
+        is entered """
+        return ""
+
     def do_quit(self, command):
         """Functionality for quitting the console"""
         return True
