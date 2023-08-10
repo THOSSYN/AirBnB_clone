@@ -3,11 +3,24 @@
 the command line interpreter"""
 
 import cmd
+from models.base_model import BaseModel
 
 
 class HBNBCommand(cmd.Cmd):
     """Creates a class that handles the cmd console"""
     prompt = "(hbnb) "
+
+    def do_create(self, line):
+        """ Creates a new instance of a basemodel and saves it to the
+        json file """
+
+        if not line:
+            print("** class name missing **")
+        elif line == "BaseModel":
+            obj = BaseModel()
+            print(obj.id)
+        else:
+            print("** class doesn't exist **")
 
     def emptyline(self):
         """ The emptyline method called when an empty line
