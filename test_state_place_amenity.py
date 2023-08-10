@@ -6,6 +6,7 @@ from models.state import State
 from models.city import City
 from models.amenity import Amenity
 from models.place import Place
+from models.review import Review
 
 all_objs = storage.all()
 print("-- Reloaded objects --")
@@ -78,3 +79,18 @@ for key, value in storage.all().items():
 place.amenity_ids = Amenity.id
 place.save()
 print(place)
+
+print("+++========== Create a new Review ========+++")
+review = Review()
+review.text = "Text message to the service provider"
+for key, value in storage.all().items():
+    if "Place" in key and value.name == "The place":
+        Place.id = value.id
+review.place_id = Place.id
+
+for key, value in storage.all().items():
+    if "User" in key and value.email == "airbnb2@mail.com":
+        User.id = value.id
+review.user_id = User.id
+review.save()
+print(review)
