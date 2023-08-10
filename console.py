@@ -55,6 +55,108 @@ class HBNBCommand(cmd.Cmd):
 
         print("** no instance found **")
 
+    def do_destroy(self, args):
+        """ Deletes the instance of a base model in the storage and
+        updates the value in the json file."""
+        args = args.split()
+
+        if not args:
+            print("** class name missing **")
+            return
+
+        if args[0] != "BaseModel":
+            print("** class doesn't exist **")
+            return
+
+        if len(args) != 2:
+            print("** instance id missing **")
+            return
+
+        obj_id = args[1]
+        storage.reload()
+        inst_dict = storage.all()
+        to_del = ""
+
+        for key, value in inst_dict.items():
+            if obj_id == value.id:
+                to_del = key
+
+        if to_del != "":
+            del inst_dict[to_del]
+            storage.save()
+        else:
+            print("** no instance found **")
+
+    def do_all(self, args):
+        """ Prints are the BaseModel instances in the storage
+        as a list."""
+
+        args = args.split()
+
+        if args and args[0] != "BaseModel":
+            print("** class doesn't exist **")
+            return
+
+        storage.reload()
+        inst_dict = storage.all()
+        rep_list = []
+        for key, value in inst_dict.items():
+            rep_list.append(str(value))
+
+        print(rep_list)
+
+    def do_update(self, args):
+        """ Updates the attributes of an instance in the json file."""
+        args = args.split()
+
+        if not args:
+            print ("** class name missing **")
+            return
+
+        if args[0] != "BaseModel":
+            print("** class doesn't exist **")
+            return
+
+        if len(args) < 2:
+            print("** instance id missing **")
+            return
+
+        # confirm if the id exists
+        obj_id = args[1]
+        storage.reload()
+        inst_dict = storage.all()
+        id_check = ""
+
+        for key, value in inst_dict.items():
+            if obj_id == value.id:
+
+                # id_check will hold the key to the
+                # basemodel object with the given id, if it exists
+                id_check = key
+
+        if id_check == "":
+            print("** no instance found **")
+            return
+
+        if len(args) < 3:
+            print("** attribute name missing **")
+            return
+
+        if len(args) < 4:
+            print("** value missing **")
+            return
+
+        # retrieve the value of the key from the id_check
+        # implement the update
+        bm_obj = inst_dict[id_check]
+
+        if args[2] in bm_obj.to_dict():
+            bm_obj.__dict__[args[2]] = str(args[3])
+        else:
+            bm_obj.__dict__[args[2]] = str(args[3])
+
+        bm_obj.save()
+
     def emptyline(self):
         """ The emptyline method called when an empty line
         is entered """
