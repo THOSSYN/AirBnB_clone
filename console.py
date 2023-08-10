@@ -5,10 +5,14 @@ the command line interpreter"""
 import cmd
 from models.base_model import BaseModel
 from models import storage
+from models.user import User
+
 
 class HBNBCommand(cmd.Cmd):
     """Creates a class that handles the cmd console"""
     prompt = "(hbnb) "
+    __models = ["BaseModel", "Place", "User",
+                "State", "City", "Amenity", "Review"]
 
     def do_create(self, line):
         """ Creates a new instance of a basemodel and saves it to the
@@ -16,10 +20,31 @@ class HBNBCommand(cmd.Cmd):
 
         if not line:
             print("** class name missing **")
-        elif line == "BaseModel":
-            obj = BaseModel()
-            obj.save()
-            print(obj.id)
+        elif line in self.__models:
+            if line == "BaseModel":
+                obj = BaseModel()
+                obj.save()
+                print(obj.id)
+            elif line == "User":
+                obj = User()
+                obj.save()
+                print(obj.id)
+            elif line == "State":
+                obj = State()
+                obj.save()
+                print(obj.id)
+            elif line == "City":
+                obj = City()
+                obj.save()
+                print(obj.id)
+            elif line == "Amenity":
+                obj = User()
+                obj.save()
+                print(obj.id)
+            else:
+                obj = Review()
+                obj.save()
+                print(obj.id)
         else:
             print("** class doesn't exist **")
 
@@ -36,7 +61,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        if args[0] != "BaseModel":
+        if args[0] not in self.__models:
             print("** class doesn't exist **")
             return
 
@@ -64,7 +89,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        if args[0] != "BaseModel":
+        if args[0] not in self.__models:
             print("** class doesn't exist **")
             return
 
@@ -93,7 +118,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = args.split()
 
-        if args and args[0] != "BaseModel":
+        if args and args[0] not in self.__models:
             print("** class doesn't exist **")
             return
 
@@ -110,10 +135,10 @@ class HBNBCommand(cmd.Cmd):
         args = args.split()
 
         if not args:
-            print ("** class name missing **")
+            print("** class name missing **")
             return
 
-        if args[0] != "BaseModel":
+        if args[0] not in self.__models:
             print("** class doesn't exist **")
             return
 
