@@ -8,7 +8,7 @@ class State(BaseModel):
     """Creates class State that inherits from BaseModel"""
     name = ""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Initializes attributes of class State"""
         super().__init__()
 

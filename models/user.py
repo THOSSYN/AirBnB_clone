@@ -2,7 +2,7 @@
 """A User class that inherits from BaseModel"""
 
 from models.base_model import BaseModel
-
+from models import storage
 
 class User(BaseModel):
     """Creates a User class"""
@@ -11,7 +11,7 @@ class User(BaseModel):
     first_name = ""
     last_name = ""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         super().__init__()
 
     def __str__(self):

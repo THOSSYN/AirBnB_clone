@@ -1,0 +1,68 @@
+#!/usr/bin/python3
+"""
+This is a file storage module that serializes instances to
+a JSON file and deserializes JSON file to instances.
+"""
+
+import json
+import os
+from datetime import datetime
+
+class FileStorage:
+    """ The file storage class will aid serialization and
+    deserialization of basemodel objects, using
+    JSON to store the id of each basemodel instance. """
+
+    __file_path = "./model.json"
+
+    # __objects is a dictionary storing all basemodel instance ids
+    # the key "<__class__.__name__.id>"
+    __objects = {}
+
+    def all(self):
+        """ Returns the dictionary of basemodel objects """
+        return self.__objects
+
+    def new(self, obj):
+        """ Set a new object(obj) in the __object dictionary. """
+        new_key = str(obj.__class__.__name__) + '.' + str(obj.id)
+        self.__objects[new_key] = obj.__dict__
+
+    def save(self):
+        """ serializes the __objects to the json file."""
+
+        if os.path.exists(self.__file_path):
+            with open(self.__file_path, "w", encoding="utf-8") as file:
+                new_dict = {}
+                for key, value in self.__objects.items():
+                    new_dict[key] = value
+
+                    for key, values in new_dict.items():
+                        for key2, value2 in values.items():
+                            if isinstance(value2, datetime):
+                                values[key2] = value2.isoformat()
+
+                file.write(json.dumps(new_dict))
+
+        print(self.__objects)
+        print("self---------------------------------------------------------")
+        print()
+        print(new_dict)
+        print("new---------------------------------------------------------")
+        print()
+    def reload(self):
+        """ deserializes the JSON file to objects, if __file_path exits
+        otherwise nothing is done. """
+
+        if os.path.exists(self.__file_path):
+            with open(self.__file_path, "r", encoding="utf-8") as file:
+                self.__objects = json.loads(file.read())
+
+
+            for key, value in self.__objects.items():
+                for key2, value2 in value.items():
+                    if key2 :
+                            value[key2] = datetime.fromisoformat(value2)
+
+        else:
+            pass

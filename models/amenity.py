@@ -8,7 +8,7 @@ class Amenity(BaseModel):
     """Creates a class Amenity"""
     name = ""
 
-    def __init__(self):
+    def __init__(self, *args, **kwargs):
         """Initializes Amenity attribute"""
         super().__init__()
 

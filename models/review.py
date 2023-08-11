@@ -10,7 +10,7 @@ class Review(BaseModel):
     user_id = ""
     text = ""
 
-    def __init__(self):
+    def __init__(self, *arg, **kwargs):
         """Initializes attributes of class Review"""
         super().__init__()
 

@@ -19,6 +19,9 @@ class FileStorage:
     # __objects is a dictionary storing all basemodel instance ids
     # the key "<__class__.__name__.id>"
     __objects = {}
+    __models = ["BaseModel", "Place", "User",
+                "State", "City", "Amenity", "Review"]
+
 
     def all(self):
         """ Returns the dictionary of basemodel objects """
@@ -42,10 +45,48 @@ class FileStorage:
         """ deserializes the JSON file to objects, if __file_path exits
         otherwise nothing is done. """
         from ..base_model import BaseModel
+        from ..user import User
+        from ..state import State
+        from ..amenity import Amenity
+        from ..review import Review
+        from ..place import Place
+        from ..city import City
+
         if os.path.exists(self.__file_path):
             with open(self.__file_path, "r") as f:
                 des_obj = json.load(f)
-                for key, value in des_obj.items():
-                    inst = BaseModel(**value)
-                    des_obj[key] = inst
+
+                # check through the models
+                for model in self.__models:
+
+                    # check if the model name is present in key
+                    for key, value in des_obj.items():
+
+                        # create the instance with the matching class
+                        if model in key:
+
+                            if model == "BaseModel":
+                                inst = BaseModel(**value)
+                                des_obj[key] = inst
+
+                            elif model == "User":
+                                inst = User(**value)
+                                des_obj[key] = inst
+
+                            elif model == "State":
+                                inst = State(**value)
+                                des_obj[key] = inst
+
+                            elif model == "City":
+                                inst = City(**value)
+                                des_obj[key] = inst
+
+                            elif model == "Amenity":
+                                inst = Amenity(**value)
+                                des_obj[key] = inst
+
+                            else:
+                                inst = Review(**value)
+                                des_obj[key] = inst
+
             self.__objects = des_obj
