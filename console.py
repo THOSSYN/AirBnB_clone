@@ -18,6 +18,17 @@ class HBNBCommand(cmd.Cmd):
     __models = ["BaseModel", "Place", "User",
                 "State", "City", "Amenity", "Review"]
 
+    def precmd(self,line):
+        """ returns the line to be executed by onecmd """
+
+        for model in self.__models:
+            if model in line and '.' in line:
+                line = line.split(".")
+                return f'{line[1]} {line[0]}'
+            else:
+                return line
+
+
     def do_create(self, line):
         """ Creates a new instance of a basemodel and saves it to the
         json file """
@@ -27,27 +38,27 @@ class HBNBCommand(cmd.Cmd):
         elif line in self.__models:
             if line == "BaseModel":
                 obj = BaseModel()
-                obj.save()
+                # obj.save()
                 print(obj.id)
             elif line == "User":
                 obj = User()
-                obj.save()
+                # obj.save()
                 print(obj.id)
             elif line == "State":
                 obj = State()
-                obj.save()
+                # obj.save()
                 print(obj.id)
             elif line == "City":
                 obj = City()
-                obj.save()
+                # obj.save()
                 print(obj.id)
             elif line == "Amenity":
                 obj = User()
-                obj.save()
+                # obj.save()
                 print(obj.id)
             else:
                 obj = Review()
-                obj.save()
+                # obj.save()
                 print(obj.id)
         else:
             print("** class doesn't exist **")
@@ -78,6 +89,7 @@ class HBNBCommand(cmd.Cmd):
         inst_dict = storage.all()
 
         for key, value in inst_dict.items():
+            print(value)
             if obj_id == value.id:
                 print(value)
                 return
@@ -126,11 +138,18 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        storage.reload()
-        inst_dict = storage.all()
         rep_list = []
-        for key, value in inst_dict.items():
-            rep_list.append(str(value))
+        if args:
+            storage.reload()
+            inst_dict = storage.all()
+            for key, value in inst_dict.items():
+                if args in key:
+                    rep_list.append(str(value))
+        else:
+            storage.reload()
+            inst_dict = storage.all()
+            for key, value in inst_dict.items():
+                rep_list.append(str(value))
 
         print(rep_list)
 
