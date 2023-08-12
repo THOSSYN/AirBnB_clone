@@ -10,12 +10,8 @@ class State(BaseModel):
 
     def __init__(self, *args, **kwargs):
         """Initializes attributes of class State"""
-        super().__init__()
+        super().__init__(**kwargs)
 
     def __str__(self):
         """Returns a string representation of the attributes of State"""
         return f"[{self.__class__.__name__}] {self.__dict__}"
-
-#state = State()
-#state.name = "NewYork"
-#print(state)

@@ -12,7 +12,7 @@ class Review(BaseModel):
 
     def __init__(self, *arg, **kwargs):
         """Initializes attributes of class Review"""
-        super().__init__()
+        super().__init__(**kwargs)
 
     def __str__(self):
         """returns string representation of attribute and methods of Review"""

@@ -10,7 +10,7 @@ class City(BaseModel):
     name = ""
 
     def __init__(self, *args, **kwargs):
-        super().__init__()
+        super().__init__(**kwargs)
 
     def __str__(self):
         """Returns the string representation"""

@@ -8,6 +8,7 @@ from models import storage
 from models.user import User
 from models.state import State
 from models.amenity import Amenity
+from models.place import Place
 from models.city import City
 from models.review import Review
 
@@ -18,16 +19,15 @@ class HBNBCommand(cmd.Cmd):
     __models = ["BaseModel", "Place", "User",
                 "State", "City", "Amenity", "Review"]
 
-    def precmd(self,line):
+    def precmd(self, line):
         """ returns the line to be executed by onecmd """
 
         for model in self.__models:
-            if model in line and '.' in line:
+            if model in line and "." in line:
                 line = line.split(".")
                 return f'{line[1]} {line[0]}'
             else:
                 return line
-
 
     def do_create(self, line):
         """ Creates a new instance of a basemodel and saves it to the
@@ -38,27 +38,31 @@ class HBNBCommand(cmd.Cmd):
         elif line in self.__models:
             if line == "BaseModel":
                 obj = BaseModel()
-                # obj.save()
+                storage.save()
                 print(obj.id)
             elif line == "User":
                 obj = User()
-                # obj.save()
+                storage.save()
                 print(obj.id)
             elif line == "State":
                 obj = State()
-                # obj.save()
+                storage.save()
                 print(obj.id)
             elif line == "City":
                 obj = City()
-                # obj.save()
+                storage.save()
                 print(obj.id)
             elif line == "Amenity":
-                obj = User()
-                # obj.save()
+                obj = Amenity()
+                storage.save()
+                print(obj.id)
+            elif line == "Place":
+                obj = Place()
+                storage.save()
                 print(obj.id)
             else:
                 obj = Review()
-                # obj.save()
+                storage.save()
                 print(obj.id)
         else:
             print("** class doesn't exist **")
@@ -87,12 +91,11 @@ class HBNBCommand(cmd.Cmd):
         obj_id = args[1]
         storage.reload()
         inst_dict = storage.all()
+        to_show = f'{args[0]}.{args[1]}'
 
-        for key, value in inst_dict.items():
-            print(value)
-            if obj_id == value.id:
-                print(value)
-                return
+        if to_show in inst_dict:
+            print(inst_dict[to_show])
+            return
 
         print("** no instance found **")
 
@@ -143,7 +146,7 @@ class HBNBCommand(cmd.Cmd):
             storage.reload()
             inst_dict = storage.all()
             for key, value in inst_dict.items():
-                if args in key:
+                if args[0] in key:
                     rep_list.append(str(value))
         else:
             storage.reload()

@@ -22,7 +22,6 @@ class FileStorage:
     __models = ["BaseModel", "Place", "User",
                 "State", "City", "Amenity", "Review"]
 
-
     def all(self):
         """ Returns the dictionary of basemodel objects """
         return self.__objects
@@ -53,6 +52,7 @@ class FileStorage:
         from ..city import City
 
         if os.path.exists(self.__file_path):
+            reloaded = {}
             with open(self.__file_path, "r") as f:
                 des_obj = json.load(f)
 
@@ -67,26 +67,30 @@ class FileStorage:
 
                             if model == "BaseModel":
                                 inst = BaseModel(**value)
-                                des_obj[key] = inst
+                                reloaded[key] = inst
 
                             elif model == "User":
                                 inst = User(**value)
-                                des_obj[key] = inst
+                                reloaded[key] = inst
 
                             elif model == "State":
                                 inst = State(**value)
-                                des_obj[key] = inst
+                                reloaded[key] = inst
 
                             elif model == "City":
                                 inst = City(**value)
-                                des_obj[key] = inst
+                                reloaded[key] = inst
 
                             elif model == "Amenity":
                                 inst = Amenity(**value)
-                                des_obj[key] = inst
+                                reloaded[key] = inst
+
+                            elif model == "Place":
+                                inst = Place(**value)
+                                reloaded[key] = inst
 
                             else:
                                 inst = Review(**value)
-                                des_obj[key] = inst
+                                reloaded[key] = inst
 
-            self.__objects = des_obj
+            self.__objects = reloaded

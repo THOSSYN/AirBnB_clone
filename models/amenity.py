@@ -10,7 +10,7 @@ class Amenity(BaseModel):
 
     def __init__(self, *args, **kwargs):
         """Initializes Amenity attribute"""
-        super().__init__()
+        super().__init__(**kwargs)
 
     def __str__(self):
         """Returns string representation of class Amenity"""

@@ -19,7 +19,7 @@ class Place(BaseModel):
 
     def __init__(self, *args, **kwargs):
         """initializes the attributes of Place"""
-        super().__init__()
+        super().__init__(**kwargs)
 
     def __str__(self):
         """Returns string representation of the attribute of Place"""
