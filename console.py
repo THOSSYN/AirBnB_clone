@@ -26,8 +26,8 @@ class HBNBCommand(cmd.Cmd):
             if model in line and "." in line:
                 line = line.split(".")
                 return f'{line[1]} {line[0]}'
-            else:
-                return line
+
+        return line
 
     def do_create(self, line):
         """ Creates a new instance of a basemodel and saves it to the
@@ -35,31 +35,38 @@ class HBNBCommand(cmd.Cmd):
 
         if not line:
             print("** class name missing **")
+
         elif line in self.__models:
             if line == "BaseModel":
                 obj = BaseModel()
                 storage.save()
                 print(obj.id)
+
             elif line == "User":
                 obj = User()
                 storage.save()
                 print(obj.id)
+
             elif line == "State":
                 obj = State()
                 storage.save()
                 print(obj.id)
+
             elif line == "City":
                 obj = City()
                 storage.save()
                 print(obj.id)
+
             elif line == "Amenity":
                 obj = Amenity()
                 storage.save()
                 print(obj.id)
+
             elif line == "Place":
                 obj = Place()
                 storage.save()
                 print(obj.id)
+
             else:
                 obj = Review()
                 storage.save()
