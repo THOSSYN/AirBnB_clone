@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 class TestAmenity(unittest.TestCase):
-    """ 
+    """
     The TestBaseModel is the test for attributes and methods
     in the BaseModel class.
     """
@@ -27,8 +27,8 @@ class TestAmenity(unittest.TestCase):
     def test_amenity(self):
         """ This test for the instance of the basemodel class. """
 
-        self.assertEqual(self.ob1.my_number, 60) 
-        self.assertEqual(self.ob2.my_number, 40) 
+        self.assertEqual(self.ob1.my_number, 60)
+        self.assertEqual(self.ob2.my_number, 40)
         self.assertNotEqual(self.ob1.id, None)
         self.assertNotEqual(self.ob1.created_at, None)
         self.assertNotEqual(self.ob1.updated_at, None)
@@ -61,7 +61,7 @@ class TestAmenity(unittest.TestCase):
 
     def test_init_from_dict(self):
         """Tests for instantiation from dictionary representation"""
-        a_dict = { 
+        a_dict = {
                 'id': str(uuid4()),
                 'created_at': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f"),
                 'updated_at': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")

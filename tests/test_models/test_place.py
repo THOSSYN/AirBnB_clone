@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 class TestPlace(unittest.TestCase):
-    """ 
+    """
     The TestBaseModel is the test for attributes and methods
     in the BaseModel class.
     """
@@ -60,12 +60,11 @@ class TestPlace(unittest.TestCase):
 
     def test_to_dict(self):
         """ tests for the to dict method """
-
         self.assertIsNotNone(self.ob1.to_dict().__doc__)
 
     def test_init_from_dict(self):
         """Tests for instantiation from dictionary representation"""
-        a_dict = { 
+        a_dict = {
                 'id': str(uuid4()),
                 'created_at': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f"),
                 'updated_at': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")

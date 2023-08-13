@@ -11,7 +11,7 @@ from datetime import datetime
 
 
 class TestReview(unittest.TestCase):
-    """ 
+    """
     The TestBaseModel is the test for attributes and methods
     in the BaseModel class.
     """
@@ -40,9 +40,9 @@ class TestReview(unittest.TestCase):
 
     def test_addy_attr(self):
         """Tests for attributes not inherited from BaseModel"""
-        self.assertEqual(self.ob1.place_id, "") 
-        self.assertEqual(self.ob1.text, "") 
-        self.assertEqual(self.ob1.user_id, "") 
+        self.assertEqual(self.ob1.place_id, "")
+        self.assertEqual(self.ob1.text, "")
+        self.assertEqual(self.ob1.user_id, "")
 
     def test_str(self):
         """ test for the magic print """
@@ -61,7 +61,7 @@ class TestReview(unittest.TestCase):
 
     def test_init_from_dict(self):
         """Tests for instantiation from dictionary representation"""
-        a_dict = { 
+        a_dict = {
                 'id': str(uuid4()),
                 'created_at': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f"),
                 'updated_at': datetime.now().strftime("%Y-%m-%dT%H:%M:%S.%f")
