@@ -27,7 +27,7 @@ class HBNBCommand(cmd.Cmd):
                 line = line.split(".")
                 if "(" in line[1]:
 
-                    if "-" in line[1]:
+                    if '"' in line[1]:
                         prt = line.pop()
                         prt = prt.split("(")
                         line.append(prt[0])
