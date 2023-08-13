@@ -25,7 +25,23 @@ class HBNBCommand(cmd.Cmd):
         for model in self.__models:
             if model in line and "." in line:
                 line = line.split(".")
-                return f'{line[1]} {line[0]}'
+                if "(" in line[1]:
+
+                    if "-" in line[1]:
+                        prt = line.pop()
+                        prt = prt.split("(")
+                        line.append(prt[0])
+                        prt2 = prt[1][1:-2]
+                        line.append(prt2)
+
+                        return f'{line[1]} {line[0]} {line[2]}'
+
+                    prt = line.pop()
+                    prt = prt.split("()")
+                    line.append(prt[0])
+                    return f'{line[1]} {line[0]}'
+                else:
+                    return f'{line[1]} {line[0]}'
 
         return line
 
@@ -163,6 +179,30 @@ class HBNBCommand(cmd.Cmd):
 
         print(rep_list)
 
+    def do_count(self, args):
+        """ Counts the number of instances. """
+
+        args = args.split()
+        count = 0
+
+        if args and args[0] not in self.__models:
+            print("** class doesn't exist **")
+            return
+
+        if args:
+            storage.reload()
+            inst_dict = storage.all()
+            for key, value in inst_dict.items():
+                if args[0] in key:
+                    count += 1
+        else:
+            storage.reload()
+            inst_dict = storage.all()
+            for key, value in inst_dict.items():
+                count += 1
+
+        print(count)
+
     def do_update(self, args):
         """ Updates the attributes of an instance in the json file."""
         args = args.split()
@@ -228,6 +268,10 @@ class HBNBCommand(cmd.Cmd):
         """Exit gracefully when end of file is signaled """
         print()
         return True
+
+    # def postloop(self):
+    #     """ Command to execute after the loop is exited. """
+    #     print()
 
 
 if __name__ == '__main__':
