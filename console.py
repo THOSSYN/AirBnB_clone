@@ -38,13 +38,14 @@ class HBNBCommand(cmd.Cmd):
 
                     if '"' in part:
                         part = part.split("(")
+                        line.append(part[0])
 
                         if "," in part[1]:
-                            parts = part[1][:-1]
-                            parts = parts.split(",")
-                            print(parts)
+                            pts = part[1][:-1]
+                            pts = pts.split(",")
+                            return (f'{line[1]} {line[0]}'
+f' {pts[0][1:-1]} {pts[1][2:-1]} {pts[2][1:]}')
 
-                        line.append(part[0])
                         part2 = part[1][1:-2]
                         line.append(part2)
 
@@ -263,12 +264,12 @@ class HBNBCommand(cmd.Cmd):
         bm_obj = inst_dict[id_check]
 
         if args[2] in bm_obj.to_dict():
-            if type(args[3]) is str:
-                bm_obj.__dict__[args[2]] = str(args[3][1:-1])
-            else:
-                bm_obj.__dict__[args[2]] = str(args[3])
+            # if type(args[3]) is str:
+            #     bm_obj.__dict__[args[2]] = str(args[3][1:-1])
+            # else:
+            bm_obj.__dict__[args[2]] = str(args[3])
         else:
-            bm_obj.__dict__[args[2]] = str(args[3][1:-1])
+            bm_obj.__dict__[args[2]] = str(args[3])
 
         bm_obj.save()
 
