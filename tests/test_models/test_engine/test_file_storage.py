@@ -5,7 +5,7 @@ and methods.
 """
 
 import unittest
-from models.engine.filestorage import FileStorage
+from models.engine.file_storage import FileStorage
 
 class TestFileStorage(unittest.TestCase):
     """
@@ -21,37 +21,37 @@ class TestFileStorage(unittest.TestCase):
         do repeatedly, which you only have to do once in the method.
         """
 
-        store = FileStorage()
+        self.store = FileStorage()
 
     def test_filestorage(self):
         """ test for the file storage class. """
 
-        self.assertIsNotNone(self.store.__objects)
-        self.assertIsNotNone(self.store.__file_path)
-        self.assertEqual(self.store.__objects, {})
-        self.assertIsInstance(self.store.__objects, dict)
-        self.assertIsInstance(self.store.__file_path, str)
+        with self.assertRaises(AttributeError):
+            self.store.__objects
+        with self.assertRaises(AttributeError):
+            self.store.__file_path
 
     def test_all(self):
         """ The test for the all method """
 
-        file_content = store.all()
-        self.assertEqual(self.store.__objects, {})
-        self.assertIsNotNone(self.store.__objects)
-        self.assertIsInstance(self.store.__objects, dict))
+        file_content = self.store.all()
+        self.assertEqual(file_content, {})
+        self.assertIsNotNone(file_content)
+        self.assertIsInstance(file_content, dict)
 
     def test_new(self):
         """ The test for the new method in file storage """
-        from model.basemodel import BaseModel
+        from models.base_model import BaseModel
 
         obj = BaseModel()
-        store.new(obj)
+        ret = self.store.new(obj)
+        file_content = self.store.all()
 
-        self.assertIsNotNone(self.store.__objects)
-        self.assertIsInstance(self.store.__objects, dict)
-        self.assertNotEqual(len(self.store.__objects), 0)
+        self.assertIsNone(ret)
+        self.assertIsInstance(file_content, dict)
+        self.assertNotEqual(len(file_content), 0)
         key = f"{obj.__class__.__name__}.{obj.id}"
-        self.assertIsInstance(self.store.__object[key], BaseModel)
+        self.assertIsInstance(file_content[key], BaseModel)
 
     def test_save(self):
         """ The test for the save method """
@@ -61,8 +61,8 @@ class TestFileStorage(unittest.TestCase):
         """ Test for the storage reload method """
 
         self.assertIsNone(self.store.reload())
-        store.reload()
-        new_dict = store.all()
+        self.store.reload()
+        new_dict = self.store.all()
 
         self.assertIsNotNone(new_dict)
-        self.assertisInstance(new_dict, dict)
+        self.assertIsInstance(new_dict, dict)
