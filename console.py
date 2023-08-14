@@ -23,22 +23,36 @@ class HBNBCommand(cmd.Cmd):
         """ returns the line to be executed by onecmd """
 
         for model in self.__models:
-            if model in line and "." in line:
-                line = line.split(".")
-                if "(" in line[1]:
 
-                    if '"' in line[1]:
-                        prt = line.pop()
-                        prt = prt.split("(")
-                        line.append(prt[0])
-                        prt2 = prt[1][1:-2]
-                        line.append(prt2)
+            # Re-parse the line to fit the mode api
+            if model in line and "." in line:
+
+                # Command is in the form User.all()
+                # Split the commands to fit api
+                line = line.split(".")
+
+                # Split for commands with argument like
+                # show and update
+                if "(" in line[1]:
+                    part = line.pop()
+
+                    if '"' in part:
+                        part = part.split("(")
+
+                        if "," in part[1]:
+                            parts = part[1][:-1]
+                            parts = parts.split(",")
+                            print(parts)
+
+                        line.append(part[0])
+                        part2 = part[1][1:-2]
+                        line.append(part2)
 
                         return f'{line[1]} {line[0]} {line[2]}'
 
-                    prt = line.pop()
-                    prt = prt.split("()")
-                    line.append(prt[0])
+                    # Split for commands without arguents
+                    part = part.split("()")
+                    line.append(part[0])
                     return f'{line[1]} {line[0]}'
                 else:
                     return f'{line[1]} {line[0]}'
@@ -135,7 +149,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
             return
 
-        if len(args) != 2:
+        if len(args) < 2:
             print("** instance id missing **")
             return
 
@@ -249,9 +263,12 @@ class HBNBCommand(cmd.Cmd):
         bm_obj = inst_dict[id_check]
 
         if args[2] in bm_obj.to_dict():
-            bm_obj.__dict__[args[2]] = str(args[3])
+            if type(args[3]) is str:
+                bm_obj.__dict__[args[2]] = str(args[3][1:-1])
+            else:
+                bm_obj.__dict__[args[2]] = str(args[3])
         else:
-            bm_obj.__dict__[args[2]] = str(args[3])
+            bm_obj.__dict__[args[2]] = str(args[3][1:-1])
 
         bm_obj.save()
 
