@@ -25,6 +25,12 @@ class TestUser(unittest.TestCase):
         self.ob1.email = "airbnb2@email.com"
         self.ob1.my_number = 60
         self.ob2.my_number = 40
+        self.inst1 = User()
+        self.inst2 = User(first_name="Busola", last_name="Ife")
+        self.inst1.email = "tosin@mail.com"
+        self.inst1.first_name = "Tosin"
+        self.inst1.last_name = "Banwo"
+        self.dico = self.ob1.to_dict()
 
     def test_user(self):
         """ This test for the instance of the basemodel class. """
@@ -41,6 +47,20 @@ class TestUser(unittest.TestCase):
         self.assertGreater(self.ob2.created_at, self.ob1.updated_at)
         self.assertIsInstance(self.ob1.created_at, datetime)
         self.assertIsInstance(self.ob1.updated_at, datetime)
+        self.assertIsNotNone(self.inst1.email)
+        self.assertIsNotNone(self.inst1.password)
+        self.assertIsNotNone(self.inst1.last_name)
+        self.assertIsNotNone(self.inst1.first_name)
+        self.assertIsInstance(self.inst1.email, str)
+        self.assertIsInstance(self.inst1.first_name, str)
+        self.assertIsInstance(self.inst1.last_name, str)
+        self.assertIsInstance(self.inst1.password, str)
+        self.assertEqual(self.inst1.password, "")
+        self.assertEqual(self.inst1.email, "tosin@mail.com")
+        self.assertEqual(self.inst1.first_name, "Tosin")
+        self.assertEqual(self.inst1.last_name, "Banwo")
+        self.assertEqual(self.inst2.last_name, "Ife")
+        self.assertEqual(self.inst2.first_name, "Busola")
 
     def test_addy_attr(self):
         """Tests for attributes not inherited from BaseModel"""
@@ -62,6 +82,7 @@ class TestUser(unittest.TestCase):
         """ tests for the to dict method """
 
         self.assertIsNotNone(self.ob1.to_dict().__doc__)
+        self.assertIsInstance(self.dico, dict)
 
     def test_init_from_dict(self):
         """Tests for instantiation from dictionary representation"""
