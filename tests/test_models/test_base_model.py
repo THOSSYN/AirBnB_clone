@@ -23,8 +23,6 @@ class TestBaseModel(unittest.TestCase):
         self.ob2.name = "Second"
         self.ob1.my_number = 60
         self.ob2.my_number = 40
-        self.dico = self.ob1.to_dict()
-
 
     def test_basemodel(self):
         """ This test for the instance of the basemodel class. """
@@ -56,7 +54,12 @@ class TestBaseModel(unittest.TestCase):
         """ tests for the to dict method """
 
         self.assertIsNotNone(self.ob1.to_dict().__doc__)
-        self.assertIsInstance(self.dico, dict)
+
+        dico = self.ob1.to_dict()
+        self.assertIsInstance(dico, dict)
+        self.assertIsNotNone(dico)
+        with self.assertRaises(TypeError):
+            dico = self.ob1.to_dict({"name": "Busola"})
 
     def test_init_from_dict(self):
         """Tests for instantiation from dictionary representation"""
