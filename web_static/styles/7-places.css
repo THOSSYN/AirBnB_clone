@@ -1,0 +1,24 @@
+.sec-head {
+    margin-left: 300px;
+    font-size: 30px;
+    text-align: left;
+}
+.for-first{
+    text-align: center;
+}
+.my-home{
+    display: inline-block;
+}
+.tiny-house{
+    display: inline-block;
+}
+.for-last{
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    display: flex;
+}
+.a-suite {
+    display: inline-block;
+
+}

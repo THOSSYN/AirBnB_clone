@@ -1,20 +1,12 @@
-/*
-  ==================
-  footer
-  ==================
-*/
-
 footer {
-  background-color: white;
-  height: 60px;
-  width: 100%;
-  border-top: 1px solid #CCCCCC;
-  position: fixed;
-  bottom: 0;
-}
-
-footer p {
-  margin-top: 25px;
-  text-align: center;
-  display: block;
+    background-color: white;
+    height: 60px;
+    width: 100%;
+    border-top: 1px solid #CCCCCC;
+    padding-top: 15px;
+    align-items: center;
+    justify-content: center;
+    bottom: 0;
+    position: absolute;
+    text-align: center;
 }

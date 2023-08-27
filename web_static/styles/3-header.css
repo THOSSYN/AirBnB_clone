@@ -1,14 +1,27 @@
-/*
-  ===============
-  Header
-  ===============
-*/
 header {
-  background-color: white;
-  height: 70px;
-  width: 100%;
-  border-bottom: 1px solid #CCCCCC;
-  background-image: url(/web_static/images/logo.png);
-  background-repeat: no-repeat;
-  background-position: 20px;
+    color: white;
+    height: 70px;
+    width: 100%;
+    margin-bottom: 0;
+    padding-bottom: 16px;
+}
+
+.header {
+    position: relative;
+    border-bottom: 1px solid #CCCCCC;
+}
+
+.header::before {
+    content: "";
+    background-image: url('images/logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    right: 0;
+    padding-top: 20px;
+    justify-content: center;
+    height: 30px;
+    z-index: -1;
 }
