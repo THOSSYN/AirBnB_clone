@@ -73,3 +73,10 @@ h3{
 .amenities:hover .popover {
     display: block;
 }
+
+article {
+    width: 390px;
+    padding: 20px;
+    margin: 20px;
+    border: 1px solid #FF5A5F;
+}
